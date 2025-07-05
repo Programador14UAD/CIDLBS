@@ -2,11 +2,13 @@ require('dotenv').config();
 const express = require('express');
 const usersRoutes = require('./Routes/Users/index');
 const groupTeachRoutes = require('./Routes/Class/index');
+const principalRoutes = require('./Routes/Principal');
 const app = express();
 const PORT =  process.env.PORT || 3003;
 app.use(express.json());
 app.use('/api/usuarios',usersRoutes);
 app.use('/api/grupos',groupTeachRoutes);
+app.use('/api/directores',principalRoutes);
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
