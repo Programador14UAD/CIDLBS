@@ -11,8 +11,8 @@ const insertarschema = yup.object().shape({
     materno : yup.string().required(),
     pass: yup.string().required(),
     tipo : yup.string().required(),
-    grado : yup.string().required(),
-    grupo: yup.string().required(),
+   // grado : yup.string().required(),
+    //grupo: yup.string().required(),
     escolaridad: yup.string().required(),
     id_campus: yup.number().required(),
     activo: yup.string().required(),
@@ -45,9 +45,8 @@ router.post('/insertar', async (req, res) => {
       materno: sanitize(req.body.materno),
       pass: sanitize(req.body.pass),
       tipo: sanitize(req.body.tipo),
-      grado: sanitize(req.body.grado),
-      grupo: sanitize(req.body.grupo),
-        
+      //grado: sanitize(req.body.grado),
+      //grupo: sanitize(req.body.grupo),
       escolaridad: sanitize(req.body.escolaridad),
       id_campus: parseInt(req.body.id_campus),
       activo: sanitize(req.body.activo),
@@ -56,12 +55,14 @@ router.post('/insertar', async (req, res) => {
 
     const gradoIngles=req.body.gradoIngles;
     const grupoIngles=req.body.grupoIngles;
+    const grado = req.body.grado;
+    const grupo = req.body.grupo
     await insertarschema.validate(body);
  
     const [results] = await pool.query(
       'CALL ommega.Usuarios_Post(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
       [body.usuario, body.nombre, body.paterno, body.materno, body.pass, 
-        body.tipo, body.grado, body.grupo, gradoIngles, grupoIngles,
+        body.tipo, grado, grupo, gradoIngles, grupoIngles,
         body.escolaridad, body.id_campus, body.activo, body.eliminado]
     );
 

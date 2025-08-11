@@ -7,7 +7,7 @@ const yup = require('yup');
 const validator = require('validator');
 
 const usuarioschema = yup.object().shape({
-    idusuario : yup.number().required()
+  idusuario : yup.number().required()
 });
 const sanitize = (input) => validator.escape(String(input));
 
@@ -28,23 +28,24 @@ router.post('/AltaLibrosUsuarioEspecial', async (req, res) => {
     };
 
     await usuarioschema.validate(body);
-    const results1 = await sql.sql( 
+    const result1 = await sql.sql( 
       "Exec dbo.UsuariosRelacionCarreraLibros_GetLibrosUsuario @ID_Usuario")
     .parameter('ID_Usuario',TYPES.Int, body.idusuario).execute();
 
-    const datos = results1 || [];
+    const datos = result1 || [];
     //console.log(datos);
     for (let i = 0; i < datos.length; i++) 
-      {
-        const info = datos[i];
+    {
+      const info = datos[i];
         
-        await pool.query(
-          'CALL ommega.LibrosUsuarios_Post(?,?,?,?,?)',
-          [info.Usuario, info.ID_LBS, info.Nivel, info.ID_Carrera_Ommega, info.Tipo]
-        );
-      }
+      await pool.query
+      (
+        'CALL ommega.LibrosUsuarios_Post(?,?,?,?,?)',
+        [info.Usuario, info.ID_LBS, info.Nivel, info.ID_Carrera_Ommega, info.Tipo]
+      );
+    }
       
-    response.datos = results1;
+    response.datos = datos;
     return res.status(200).send(response);
 
   } 
