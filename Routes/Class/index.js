@@ -75,7 +75,7 @@ router.post('/alta', async (req, res) => {
     }
 
     response.mensaje = 'Error al ejecutar el procedimiento almacenado';
-    console.error('[ERROR ALTA]', err.message);
+    console.error('[ERROR ALTA Grupo]', err.message);
     return res.status(500).send(response);
   }
 });
@@ -129,7 +129,7 @@ router.post('/baja', async (req, res) => {
     }
 
     response.mensaje = 'Error al ejecutar el procedimiento almacenado';
-    console.error('[ERROR BAJA]', err.message);
+    console.error('[ERROR BAJA Grupo]', err.message);
     return res.status(500).send(response);
   }
 });

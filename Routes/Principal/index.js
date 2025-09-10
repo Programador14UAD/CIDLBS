@@ -62,7 +62,7 @@ router.post('/AltaLibrosUsuarioEspecial', async (req, res) => {
     }
 
     response.mensaje = 'Error al ejecutar el procedimiento almacenado';
-    console.error('[ERROR BAJA]', err.message);
+    console.error('[ERROR Alta Libros Director]', err.message);
     return res.status(500).send(response);
   }
 });

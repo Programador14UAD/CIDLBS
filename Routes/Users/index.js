@@ -8,7 +8,7 @@ const insertarschema = yup.object().shape({
     usuario: yup.string().required(),
     nombre: yup.string().required(),
     paterno: yup.string().required(),
-    materno : yup.string().required(),
+    //materno : yup.string().required(),
     pass: yup.string().required(),
     tipo : yup.string().required(),
    // grado : yup.string().required(),
@@ -42,7 +42,7 @@ router.post('/insertar', async (req, res) => {
       usuario : sanitize(req.body.usuario),
       nombre : sanitize(req.body.nombre),
       paterno: sanitize(req.body.paterno),
-      materno: sanitize(req.body.materno),
+      //materno: sanitize(req.body.materno),
       pass: sanitize(req.body.pass),
       tipo: sanitize(req.body.tipo),
       //grado: sanitize(req.body.grado),
@@ -57,11 +57,12 @@ router.post('/insertar', async (req, res) => {
     const grupoIngles=req.body.grupoIngles;
     const grado = req.body.grado;
     const grupo = req.body.grupo
+    const materno = req.body.materno;
     await insertarschema.validate(body);
  
     const [results] = await pool.query(
       'CALL ommega.Usuarios_Post(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-      [body.usuario, body.nombre, body.paterno, body.materno, body.pass, 
+      [body.usuario, body.nombre, body.paterno, materno, body.pass, 
         body.tipo, grado, grupo, gradoIngles, grupoIngles,
         body.escolaridad, body.id_campus, body.activo, body.eliminado]
     );
@@ -87,7 +88,7 @@ router.post('/insertar', async (req, res) => {
     }
 
     response.mensaje = 'Error al ejecutar el procedimiento almacenado';
-    console.error('[ERROR ALTA]', err.message);
+    console.error('[ERROR ALTA Usuario]', err.message);
     return res.status(500).send(response);
   }
 });
@@ -135,7 +136,7 @@ router.post('/modificar-estado', async (req, res) =>
     }
 
     response.mensaje = 'Error al ejecutar el procedimiento almacenado';
-    console.error('[ERROR BAJA]', err.message);
+    console.error('[ERROR Modificar]', err.message);
     return res.status(500).send(response);
   }
   
