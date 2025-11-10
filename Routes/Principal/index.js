@@ -38,6 +38,7 @@ router.post('/AltaLibrosUsuarioEspecial', async (req, res) => {
     {
       const info = datos[i];
         
+      
       await pool.query
       (
         'CALL ommega.LibrosUsuarios_Post(?,?,?,?,?)',
