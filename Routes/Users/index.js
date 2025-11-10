@@ -134,7 +134,7 @@ router.post('/modificar-estado', async (req, res) =>
       response.mensaje = `Validación fallida: ${err.message}`;
       return res.status(400).send(response);
     }
-
+ 
     response.mensaje = 'Error al ejecutar el procedimiento almacenado';
     console.error('[ERROR Modificar]', err.message);
     return res.status(500).send(response);
